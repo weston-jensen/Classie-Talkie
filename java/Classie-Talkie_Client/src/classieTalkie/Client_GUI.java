@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class Client_GUI {
 	private final static Logger LOG = Logger.getLogger("Client_Log");
 	private Message_Encoder encode;
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 
 	private JFrame frame;
 	private String[] serverInfo;
@@ -36,7 +36,7 @@ public class Client_GUI {
 	private String pttState = "Push to Talk";
 	private int pttToggle = 1;
 
-	public Client_GUI(Client_Thread ct, Queue<Message> sendQueue) {
+	public Client_GUI(Client_Thread ct, Queue<String> sendQueue) {
 		this.ct = ct;
 		this.sendQueue = sendQueue;
 		this.encode = new Message_Encoder();
@@ -340,11 +340,11 @@ public class Client_GUI {
 		this.encode = encode;
 	}
 
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 

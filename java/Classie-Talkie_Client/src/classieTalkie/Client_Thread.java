@@ -29,12 +29,12 @@ public class Client_Thread extends Thread {
 	private volatile boolean priorityToken = false;
 
 	/* Send/Receive Queue */
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private Queue<Message> receiveQueue;
 
 	public Client_Thread() {
 		this.messageFlag = new Message_Flag(false,-1);
-		this.sendQueue = new LinkedList<Message>();
+		this.sendQueue = new LinkedList<String>();
 		this.receiveQueue = new LinkedList<Message>();
 		this.cg = new Client_GUI(this, this.sendQueue);
 		this.Client_ID = -1;
@@ -241,11 +241,11 @@ public class Client_Thread extends Thread {
 		this.messageFlag = messageFlag;
 	}
 
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 

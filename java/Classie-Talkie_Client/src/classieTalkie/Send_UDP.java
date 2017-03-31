@@ -38,7 +38,7 @@ AudioFormat format = getAudioFormat();
 	private AudioFormat getAudioFormat() {
         float sampleRate = 44100.0F;
         //8000,11025,16000,22050,44100
-        int sampleSizeBits = 8;
+        int sampleSizeBits = 16;//8;
         int channels = 1;
         boolean signed = true;
         boolean bigEndian = false;
@@ -52,7 +52,7 @@ AudioFormat format = getAudioFormat();
             DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
             TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
             mic.open(format);
-            byte tmpBuff[] = new byte[mic.getBufferSize()/5];
+            byte tmpBuff[] = new byte[44100];//new byte[mic.getBufferSize()/5];
       
             mic.start();
             while(sendAudio)
@@ -60,7 +60,7 @@ AudioFormat format = getAudioFormat();
                 int count = mic.read(tmpBuff,0,tmpBuff.length);
                 System.out.println(count);
                 
-                
+            /*    
                 Filter filter2 = new Filter(85,44100, Filter.PassType.Highpass,1);
                 for (int i = 0; i < tmpBuff.length; i++)
                 {

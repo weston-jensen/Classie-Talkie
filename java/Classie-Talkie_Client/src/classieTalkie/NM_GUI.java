@@ -21,12 +21,12 @@ public class NM_GUI {
 	private String muteStatus = "Mute Comm.";
 	private int mute = 1;
 	private Message_Encoder encoder;
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private NM_Thread nmt;
 	private boolean encryptionReady = false;
 	private RSA_Encrypt rsa;
 	
-	public NM_GUI(NM_Thread nmt, Queue<Message> sendQueue)
+	public NM_GUI(NM_Thread nmt, Queue<String> sendQueue)
 	{
 		this.NM_input = new String[2];
 		this.encoder = new Message_Encoder();
@@ -106,17 +106,7 @@ public class NM_GUI {
         lblNewLabel.setBounds(164, 5, 188, 32);
         lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
         panel.add(lblNewLabel);
-        
-        JButton encryption_btn = new JButton("Get Server Key");
-        encryption_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        encryption_btn.setBounds(201, 80, 151, 25);
-        encryption_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().SwapPublicKeys(getNmt().getPublicKey(), -1));
-			}
-		});
-        panel.add(encryption_btn);
-        
+                
         JLabel serverPass_label = new JLabel("Server Password:");
         serverPass_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
         serverPass_label.setBounds(74, 158, 117, 14);
@@ -134,12 +124,11 @@ public class NM_GUI {
         panel.add(status_label);
        
         JButton connect_btn = new JButton("Connect");
-        connect_btn.setEnabled(this.encryptionReady);
         connect_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
         connect_btn.setBounds(377, 236, 89, 23);
         connect_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().AuthenticateManager(rsa.encryptString(getNmt().getServerPublicKey(), serverPass_tf.getText()), " ", null, -1));
+				getSendQueue().add(getEncoder().AuthenticateManager(serverPass_tf.getText(), " ", -1, -1));
 			}
 		});
         panel.add(connect_btn);
@@ -186,7 +175,7 @@ public class NM_GUI {
         startLAN_btn.setBounds(362, 196, 117, 23);
         startLAN_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().CreateLAN(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()), LAN_Password_tf.getText(), -1));
+				getSendQueue().add(getEncoder().CreateLAN(getNmt().getManagerID(), LAN_Password_tf.getText(), -1));
 			}
 		});
         panel.add(startLAN_btn);
@@ -263,7 +252,7 @@ public class NM_GUI {
         getData_btn.setBounds(100, 100, 150, 45);
         getData_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().RequestAnalyticData(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()), 0, " ",-1));
+				getSendQueue().add(getEncoder().RequestAnalyticData(getNmt().getManagerID(), 0, " ",-1));
 			}
 		});
         panel.add(getData_btn);
@@ -276,12 +265,12 @@ public class NM_GUI {
 				if(getMute()==1)
 				{
 					//Mute Comm Request
-					getSendQueue().add(getEncoder().MuteComm(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()), -1));
+					getSendQueue().add(getEncoder().MuteComm(getNmt().getManagerID(), -1));
 				}
 				else
 				{
 					//Un-Mute Comm Request
-					getSendQueue().add(getEncoder().UnMuteComm(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()), -1));
+					getSendQueue().add(getEncoder().UnMuteComm(getNmt().getManagerID(), -1));
 				}
 			}
 		});
@@ -297,7 +286,7 @@ public class NM_GUI {
         end_btn.setBounds(200, 200, 150, 30);
         end_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().EndLAN(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()),-1));
+				getSendQueue().add(getEncoder().EndLAN(getNmt().getManagerID(),-1));
 			}
 		});
         panel.add(end_btn);
@@ -307,7 +296,7 @@ public class NM_GUI {
         shutdown_btn.setBounds(400, 200, 150, 30);
         shutdown_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getSendQueue().add(getEncoder().GracefulShutdown(rsa.encryptInt(getNmt().getServerPublicKey(),getNmt().getManagerID()),-1));
+				getSendQueue().add(getEncoder().GracefulShutdown(getNmt().getManagerID(),-1));
 			}
 		});
         panel.add(shutdown_btn);
@@ -337,11 +326,11 @@ public class NM_GUI {
 		this.encoder = encoder;
 	}
 
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 

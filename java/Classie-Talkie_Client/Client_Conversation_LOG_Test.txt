@@ -1,0 +1,5 @@
+2016-12-11 17:44:53 INFO classieTalkie.Client_Conversation_Tester ConnectToLAN_Test !!PASS -> Received Valid Client ID:1
+2016-12-11 17:45:03 INFO classieTalkie.Client_Conversation_Tester RequestToken_Test_Fail !!PASS -> Did not receivePriority Token
+2016-12-11 17:45:13 INFO classieTalkie.Client_Conversation_Tester RequestToken_Test !!PASS -> Received Priority Token
+2016-12-11 17:45:18 INFO classieTalkie.Client_Conversation_Tester ReleaseToken_Test_Fail !!PASS -> Did not Release Priority Token
+2016-12-11 17:45:23 INFO classieTalkie.Client_Conversation_Tester ReleaseToken_Test !!PASS -> Priority Token Released

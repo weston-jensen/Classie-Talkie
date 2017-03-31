@@ -11,14 +11,10 @@ import java.util.logging.Logger;
 public class NM_Conversation extends Conversation {
 	private NM_Thread nmt;
 	private final static Logger LOG = Logger.getLogger("Client_Log");
-	private Key serverKey;
-	private RSA_Encrypt rsa;
-
-
-	public NM_Conversation(Queue<Message> sq, Queue<Message> rq, NM_Thread nmt) {
+	
+	public NM_Conversation(Queue<String> sq, Queue<Message> rq, NM_Thread nmt) {
 		super(sq, rq);
 		this.nmt = nmt;
-		this.rsa = new RSA_Encrypt();
 	}
 
 	public void run()
@@ -47,7 +43,7 @@ public class NM_Conversation extends Conversation {
 			if((m.getMesgStatus())>0)//If there is no error
 			{
 				//set our Manager ID
-				this.nmt.setManagerID(this.rsa.decryptToInt(this.nmt.getPrivateKey(),m.getManagerID()));
+				this.nmt.setManagerID(m.getManagerID());
 				this.nmt.getNm_gui().setStatus("Valid Password, Welcome Professor");
 				this.nmt.getNm_gui().changeFrame();
 				LOG.info("->NM is now connected with ManagerID: "+this.nmt.getManagerID());
@@ -152,8 +148,6 @@ public class NM_Conversation extends Conversation {
 			if((m.getMesgStatus())>0)//Got server public key
 			{
 				LOG.info("-> Received Server Public Key");
-				this.serverKey = m.getPublicKey();
-				this.nmt.setServerPublicKey(m.getPublicKey());
 				this.nmt.getNm_gui().setStatus("Received Server Public Key");
 				this.nmt.getNm_gui().setEncryptionReady(true);
 				this.nmt.getNm_gui().changeToValidateNM();

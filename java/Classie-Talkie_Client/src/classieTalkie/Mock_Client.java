@@ -11,14 +11,14 @@ public class Mock_Client extends Thread {
 	private Socket tcp_socket;
 	private Send_TCP TCP_Sender;
 	private Receive_TCP TCP_Receiver;
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private Queue<Message> receiveQueue;
 	private volatile Message_Flag messageFlag;
 	public boolean running = true;
 	
 	public Mock_Client() throws Exception
 	{
-		this.sendQueue = new LinkedList<Message>();
+		this.sendQueue = new LinkedList<String>();
 		this.receiveQueue = new LinkedList<Message>();
 		this.messageFlag = new Message_Flag(false,-1);
 		beginComm();
@@ -58,11 +58,11 @@ public class Mock_Client extends Thread {
 		return 1;
 	}
 	
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 

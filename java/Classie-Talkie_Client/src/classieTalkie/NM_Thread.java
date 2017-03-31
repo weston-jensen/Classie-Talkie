@@ -34,18 +34,15 @@ public class NM_Thread extends Thread {
 	private Message_Flag messageFlag;
 	private int LAN_Started = -1;
 	private int Convo_Muted = -1;
-	private Key privateKey;
-	private Key publicKey;
-	private Key serverPublicKey;
-	
+
 	/*Send/Receive Queue*/
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private Queue<Message> receiveQueue;
 	
 	public NM_Thread()
 	{
 		this.messageFlag = new Message_Flag(false,-1);
-		this.sendQueue = new LinkedList<Message>();
+		this.sendQueue = new LinkedList<String>();
 		this.receiveQueue = new LinkedList<Message>();
 		nm_gui = new NM_GUI(this, this.sendQueue);
 		this.ManagerID = -1;
@@ -54,7 +51,6 @@ public class NM_Thread extends Thread {
 
 	public void run()
 	{
-		generateRSAKeys();
 		connectToServer();
 		while (this.running) {
 			// in this loop we can check the client input
@@ -137,19 +133,7 @@ public class NM_Thread extends Thread {
 		return 1;
 	}
 	
-	private void generateRSAKeys()
-	{
-		try {
-			KeyPairGenerator keygen = KeyPairGenerator.getInstance("RSA");
-			keygen.initialize(2048);
-			KeyPair kp = keygen.genKeyPair();
-			this.publicKey = kp.getPublic();
-			this.privateKey = kp.getPrivate();
-			
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	public int getManagerID() {
 		return ManagerID;
@@ -191,11 +175,11 @@ public class NM_Thread extends Thread {
 		TCP_Receiver = tCP_Receiver;
 	}
 
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 
@@ -223,29 +207,7 @@ public class NM_Thread extends Thread {
 		Convo_Muted = convo_Muted;
 	}
 
-	public Key getPrivateKey() {
-		return privateKey;
-	}
-
-	public void setPrivateKey(Key privateKey) {
-		this.privateKey = privateKey;
-	}
-
-	public Key getPublicKey() {
-		return publicKey;
-	}
-
-	public void setPublicKey(Key publicKey) {
-		this.publicKey = publicKey;
-	}
-
-	public Key getServerPublicKey() {
-		return serverPublicKey;
-	}
-
-	public void setServerPublicKey(Key serverPublicKey) {
-		this.serverPublicKey = serverPublicKey;
-	}
+	
 	
 	
 	

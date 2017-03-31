@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ public class GUI implements Runnable  {
 		this.m = m;
 		frame = new JFrame();
 		makeFrame();
+		
 		
 		thread = new Thread(this);
 		thread.start();
@@ -65,7 +67,8 @@ public class GUI implements Runnable  {
         message.setFont(new Font("Tahoma", Font.PLAIN, 18));
         message.setBounds(100, 150, 300, 25);
         panel.add(message);
-          
+        
+        
         frame.setVisible(true);
 	}
 	
@@ -102,7 +105,8 @@ public class GUI implements Runnable  {
 		});
         panel.add(end);
         
-        
+        ImageIcon img = new ImageIcon("Images/classieTalkieIcon.png");
+		frame.setIconImage(img.getImage());
         frame.setVisible(true);
         
 	}

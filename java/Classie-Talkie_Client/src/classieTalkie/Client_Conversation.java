@@ -12,7 +12,7 @@ public class Client_Conversation extends Conversation  {
 	private int clientID = -1;
 	private boolean running = true;
 	
-	public Client_Conversation(Queue<Message> sq, Queue<Message> rq, Client_Thread ct) {
+	public Client_Conversation(Queue<String> sq, Queue<Message> rq, Client_Thread ct) {
 		super(sq, rq);
 		this.ct = ct;
 		LOG.info("Starting Client Conversation");
@@ -67,7 +67,7 @@ public class Client_Conversation extends Conversation  {
 					//Set Error Message in GUI window
 					status = -1;
 				}
-				this.getSendQueue().add(this.getEncode().EndLAN(null,status));
+				this.getSendQueue().add(this.getEncode().EndLAN(-1,status));
 			break;
 			case 3:
 				//AuthenticateClient reply from server
@@ -140,7 +140,7 @@ public class Client_Conversation extends Conversation  {
 				break;
 			case 10:
 				//GracefulShutdown Request Received
-				this.getSendQueue().add(this.getEncode().GracefulShutdown(null, 1));//Tell server we are shutting down
+				this.getSendQueue().add(this.getEncode().GracefulShutdown(-1, 1));//Tell server we are shutting down
 				disconnectFromUDP();//Close UDP Socket if it was open
 				this.ct.killThreads();
 				this.running = false;

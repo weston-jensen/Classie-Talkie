@@ -8,11 +8,13 @@ public class TCP_Receiver extends Thread{
 	private Queue<Message> receiveQueue;
 	private ObjectInputStream inFromClient;
 	private boolean running = true;
+	private JSON_Decoder decode;
 	
 	public TCP_Receiver(ObjectInputStream inFromClient, Queue<Message> rq)
 	{
 		this.inFromClient = inFromClient;
 		this.receiveQueue = rq;
+		this.decode = new JSON_Decoder();
 	}
 	
 	public void run()
@@ -24,7 +26,11 @@ public class TCP_Receiver extends Thread{
 				Message m = null;
 				if(inFromClient !=null)
 				{
-					m = (Message)this.inFromClient.readObject();
+					
+					String mesg = (String)inFromClient.readObject();
+					System.out.println(mesg);
+					m = decode.decodeMessage(mesg);//translate JSON to Message
+					
 					this.receiveQueue.add(m);
 				}
 			} catch (ClassNotFoundException | IOException e) {

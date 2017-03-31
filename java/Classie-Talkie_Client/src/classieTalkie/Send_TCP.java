@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 public class Send_TCP extends Thread{
 	private final static Logger LOG = Logger.getLogger("Client_Log");
 	private Socket tcp_socket;
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private ObjectOutputStream outToServer;
 	private Message_Flag messageFlag;
 	private volatile boolean running = true;
 
 	
-	public Send_TCP(Socket socket, Queue<Message> sq, Message_Flag messageFlag) throws IOException
+	public Send_TCP(Socket socket, Queue<String> sq, Message_Flag messageFlag) throws IOException
 	{
 		this.tcp_socket = socket;
 		this.sendQueue = sq;
@@ -36,6 +36,12 @@ public class Send_TCP extends Thread{
 			if(!this.sendQueue.isEmpty())
 			{
 				try {
+					
+                    String m = sendQueue.remove();
+                    outToServer.writeObject(m);
+					outToServer.flush();
+					
+					/*
 					Message m = new Message();
 					m = sendQueue.remove();
 					
@@ -48,7 +54,7 @@ public class Send_TCP extends Thread{
 						outToServer.writeObject(m);
 						outToServer.flush();
 					}
-					
+					*/
 					Thread.sleep(1);
 				
 				} catch (IOException | InterruptedException e) {

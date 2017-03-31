@@ -21,7 +21,7 @@ public class Main implements Runnable {
 
 	//Global Variables
 	static Vector<connectedClient> client_registry;
-	static int ManagerID;// = 8080; 
+	static int ManagerID = 8080; 
 	static String Server_Password = "CS-5200";
 	static boolean killServer = false;
 

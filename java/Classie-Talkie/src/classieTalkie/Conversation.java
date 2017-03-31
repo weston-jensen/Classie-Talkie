@@ -32,7 +32,7 @@ public class Conversation extends Thread{
 		
 	}
 	
-	public void writeObjectToClient(Message output)
+	public void writeObjectToClient(String output)
 	{
 		try {
 			this.outToClient.writeObject(output);

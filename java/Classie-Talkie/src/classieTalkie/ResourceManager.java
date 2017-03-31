@@ -14,7 +14,7 @@ public class ResourceManager {
 		setPtoken(status, ID);
 		this.LAN_Status = false;
 		this.NMHasToken = false;
-		this.LAN_Password = "Password";//= lan;
+		this.LAN_Password = "password";//= lan;
 	}
 
 	public String getLAN_Password() {

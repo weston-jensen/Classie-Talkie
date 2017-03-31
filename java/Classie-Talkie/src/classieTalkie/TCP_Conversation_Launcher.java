@@ -70,31 +70,35 @@ public class TCP_Conversation_Launcher extends Thread {
 	@Override
 	public void run() {
 		boolean wait = true;
+		JSON_Decoder decode = new JSON_Decoder();
 		try {
 			while (wait) 
 			{	
 				LOG.info("-> TCP Conversation is Running");
 				
-				Message m = null;
-				m = (Message)inFromClient.readObject();
+				//Message m = null;
+				//m = (Message)inFromClient.readObject();
+				String mesg = (String)inFromClient.readObject();
+				System.out.println(mesg);
+				Message m = decode.decodeMessage(mesg);
 				
 				if(m != null)
 				{	
 					LOG.info("-> TCP Server Received Incoming Connection with Mesg ID: "+m.mesgID);
 					
-					if((m.mesgID)==11)
+					if((m.mesgID)==0)
 					{
 						//Network Manager Connecting
-						NM_Conversation nmc = new NM_Conversation(this.socket, this.inFromClient,this.outToClient, this.reg_instance, this.rm_instance, m, this.publicKey, this.privateKey);
-						nmc.run();
 						LOG.info("-> New Network Manager Conversation Started");
+						NM_Conversation nmc = new NM_Conversation(this.socket, this.inFromClient,this.outToClient, this.reg_instance, this.rm_instance, m);
+						nmc.run();
 						wait = false;
 					}
 					else if((m.mesgID)==3)					{
 						//Client Connecting
+						LOG.info("-> New Client Conversation Started");
 						Client_Conversation cc = new Client_Conversation(this.socket,this.inFromClient,this.outToClient, this.reg_instance, this.rm_instance, m);
 						cc.run();
-						LOG.info("-> New Client Conversation Started");
 						wait = false;
 					}
 					else
@@ -113,6 +117,7 @@ public class TCP_Conversation_Launcher extends Thread {
 			LOG.info("-> Ending TCP Conversation Launcher Thread");
 		} catch (IOException e) {
 			System.out.println(e);
+			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

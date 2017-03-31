@@ -1,0 +1,11 @@
+2016-12-11 17:22:10 INFO classieTalkie.NM_Conversation_Tester connectToServer_fail !!PASS -> NM did not connect to TCP Server, with bad IP
+2016-12-11 17:22:13 INFO classieTalkie.NM_Conversation_Tester connectToServer !!Pass -> NM Connected to TCP Server
+2016-12-11 17:22:14 INFO classieTalkie.NM_Conversation_Tester swapKeyWithServer_fail !!Pass -> Server replied with null key
+2016-12-11 17:22:15 INFO classieTalkie.NM_Conversation_Tester swapKeyWithServer_pass !!Pass -> Swapped public keys with server
+2016-12-11 17:22:18 INFO classieTalkie.NM_Conversation_Tester authenticateToServer_fail !!Pass -> NM Did not receive a valid id, with invalid password:-1
+2016-12-11 17:22:18 INFO classieTalkie.NM_Conversation_Tester authenticateToServer made it here before breaking
+2016-12-11 17:22:19 INFO classieTalkie.NM_Conversation_Tester authenticateToServer !!Pass -> NM Received Valid ManagerID:0
+2016-12-11 17:22:20 INFO classieTalkie.NM_Conversation_Tester createLAN !!Pass -> NM Created LAN with Password
+2016-12-11 17:22:23 INFO classieTalkie.NM_Conversation_Tester muteComm !!Pass -> NM Muted Comm
+2016-12-11 17:22:26 INFO classieTalkie.NM_Conversation_Tester unMuteComm !!Pass -> NM Un-Muted Comm, -1
+2016-12-11 17:22:29 INFO classieTalkie.NM_Conversation_Tester endLAN !!Pass -> NM Ended Current LAN

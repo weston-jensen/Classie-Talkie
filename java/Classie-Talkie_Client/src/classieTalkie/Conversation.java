@@ -4,12 +4,12 @@ import java.util.Queue;
 
 public class Conversation extends Thread {
 	private Client_GUI gui;
-	private Queue<Message> sendQueue;
+	private Queue<String> sendQueue;
 	private Queue<Message> receiveQueue;
 	private Message_Encoder encode;
 	private boolean running = true;
 	
-	public Conversation(Queue<Message> sq, Queue<Message> rq)
+	public Conversation(Queue<String> sq, Queue<Message> rq)
 	{
 		this.sendQueue = sq;
 		this.receiveQueue = rq;
@@ -25,11 +25,11 @@ public class Conversation extends Thread {
 	 * repeat
 	 */
 
-	public Queue<Message> getSendQueue() {
+	public Queue<String> getSendQueue() {
 		return sendQueue;
 	}
 
-	public void setSendQueue(Queue<Message> sendQueue) {
+	public void setSendQueue(Queue<String> sendQueue) {
 		this.sendQueue = sendQueue;
 	}
 

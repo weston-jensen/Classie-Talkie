@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.security.Key;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Logger;
 
 public class NM_Conversation extends Conversation {
@@ -12,38 +14,35 @@ public class NM_Conversation extends Conversation {
 	private boolean running = true;
 	private Message_Encoder encoder;
 	private int prevMesgID = -1;
-	private Key publicKey;
-	private Key privateKey;
-	private Key NM_publicKey;
-	RSA_Encrypt rsa;
-
-	public NM_Conversation(Socket socket, ObjectInputStream inFromClient, ObjectOutputStream outToClient, Registrar reg, ResourceManager rm, Message first, Key publicKey, Key privateKey) {
+	private Queue<Message> receiveQueue;
+	private TCP_Receiver receiver;
+	
+	public NM_Conversation(Socket socket, ObjectInputStream inFromClient, ObjectOutputStream outToClient, Registrar reg, ResourceManager rm, Message first) {
 		super(socket, inFromClient, outToClient, reg, rm);
 		encoder = new Message_Encoder();
-		this.publicKey = publicKey;
-		this.privateKey = privateKey;
-		this.rsa = new RSA_Encrypt();
+		
+		this.receiveQueue = new LinkedList<Message>();
+		this.receiver = new TCP_Receiver(inFromClient,receiveQueue);
+		this.receiver.start();
+		
 		LOG.info("->NM Conversation has been initialized");
-		//writeObjectToClient(Messages_Received(first));
 	}
 
 	public void run()
 	{
 		while(running)
 		{
-			try {
-				Message m = null;
-				if(this.getInFromClient()!=null)
+			try
+			{				
+				Message in = null;
+				if(!this.receiveQueue.isEmpty())
 				{
-					m = (Message)this.getInFromClient().readObject();
-					if(m != null)//if received Message is not NULL
-					{	
-						Messages_Received(m);//Respond Accordingly
-					}
+					in = this.receiveQueue.remove();
+					Messages_Received(in);	
 				}
-			Thread.sleep(10);
-			
-			} catch (ClassNotFoundException | IOException | InterruptedException e) {
+					
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
 				this.running = false;//if we lose connection kill Thread
 				e.printStackTrace();
 			}
@@ -85,22 +84,21 @@ public class NM_Conversation extends Conversation {
 				 * 		make Error message
 				 */
 				
-				String decryptedPassword = rsa.decryptToString(this.privateKey,m.getServerPass());
 				if(!this.getRegistrar().isNM_Connected())
 				{
-					if(decryptedPassword.equals(Main.Server_Password))
+					if(m.getServerPass().equals(Main.Server_Password))
 					{
 						this.getRegistrar().setNM_Connected(true);
-						writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(),"Correct Password", this.rsa.encryptInt(this.NM_publicKey, Main.ManagerID), 1));
+						writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(),"Correct Password", 8080, 1));
 					}
 					else
 					{
-						writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Incorrect Password", null, -1));
+						writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Incorrect Password", -99, -1));
 					}
 				}
 				else
 				{
-					writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Sorry Mate, a NM is already connected", null, -1));
+					writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Sorry Mate, a NM is already connected", -99, -1));
 
 				}
 
@@ -115,8 +113,9 @@ public class NM_Conversation extends Conversation {
 				 *if so, set the LAN
 				 *else send error 
 				 */
-				decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
-				if(decryptedID == Main.ManagerID)
+				System.out.println(m.getManagerID()+"*********************");
+				
+				if( m.getManagerID() == Main.ManagerID)
 				{
 					this.getResourceManager().setLAN_Password(m.getLANPass());
 					this.getRegistrar().setEndLAN(false);
@@ -131,8 +130,8 @@ public class NM_Conversation extends Conversation {
 				break;
 			case 2:
 				//EndLAN
-				decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
-				if(decryptedID == Main.ManagerID)
+				//decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+				if(m.getManagerID() == Main.ManagerID)
 				{
 					this.getResourceManager().setLAN_Password(" ");//reset LAN
 					this.getResourceManager().setLAN_Status(false);//Set status to false
@@ -155,8 +154,8 @@ public class NM_Conversation extends Conversation {
 				/*
 				 * for now just return sucesss
 				 */
-				decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
-				if(decryptedID == Main.ManagerID)
+				//decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+				if(m.getManagerID() == Main.ManagerID)
 				{
 					LOG.info("-> Sending Analytic data back to NM");
 					writeObjectToClient(this.encoder.RequestAnalyticData((m.getManagerID()),
@@ -175,8 +174,8 @@ public class NM_Conversation extends Conversation {
 				 * force client to give up token
 				 * set priority token to taken, by 8080
 				 */
-				decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
-				if(decryptedID == Main.ManagerID)
+				//decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+				if(m.getManagerID() == Main.ManagerID)
 				{
 					//Set flag to tell clients to release token if anyone has it
 					this.getResourceManager().setNMHasToken(true);
@@ -224,8 +223,8 @@ public class NM_Conversation extends Conversation {
 				 * 
 				 * set priority token to free, id = -1
 				 */
-				decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
-				if(decryptedID == Main.ManagerID)
+				//decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+				if(m.getManagerID() == Main.ManagerID)
 				{
 					this.getResourceManager().setPtoken(false, -1);
 					this.getResourceManager().setNMHasToken(false);
@@ -270,7 +269,7 @@ public class NM_Conversation extends Conversation {
 				break;
 			case 11:
 				LOG.info("-> Received NM Public Key");
-				
+				/*
 				if(m.getPublicKey()!=null)
 				{
 					//Save NM public Key
@@ -284,6 +283,7 @@ public class NM_Conversation extends Conversation {
 					//NM public key was null, send error message
 					writeObjectToClient(this.encoder.SwapPublicKeys(null,-1));
 				}
+				*/
 				
 				break;
 			}

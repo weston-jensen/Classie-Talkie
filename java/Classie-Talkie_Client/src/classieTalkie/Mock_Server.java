@@ -17,21 +17,15 @@ public class Mock_Server extends Thread{
 	private boolean running2 = true;
 	private ObjectInputStream inFromClient;
 	private ObjectOutputStream outToClient;
-	private Key privateKey;
-	private Key publicKey;
 	private Message_Encoder encoder;
-	RSA_Encrypt rsa;
-	private Key NM_publicKey;
+
 	public volatile int messageReceivedCount =0;
 
 
 	public Mock_Server() throws IOException
 	{
-		this.serverSocket = new ServerSocket(12001, 100, InetAddress.getByName("localhost"));
-		//this.serverSocket.setSoTimeout(1000);
 		encoder = new Message_Encoder();
-		this.rsa = new RSA_Encrypt();
-		generateRSAKeys();
+		this.serverSocket = new ServerSocket(12001, 100, InetAddress.getByName("localhost"));	
 	}
 
 	public void run()
@@ -87,14 +81,14 @@ public class Mock_Server extends Thread{
 		{
 		case 0:
 			//AuthenticateManager reply from server
-			String decryptedPassword = rsa.decryptToString(this.privateKey,m.getServerPass());
+			String decryptedPassword = m.getServerPass();
 			if(decryptedPassword.equals("CS-5200"))
 			{
-				writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(),"Correct", this.rsa.encryptInt(this.NM_publicKey, 8080), 1));
+				writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(),"Correct", 8080, 1));
 			}
 			else
 			{
-				writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Incorrect", null, -1));
+				writeObjectToClient(this.encoder.AuthenticateManager(m.getServerPass(), "Incorrect", -1, -1));
 			}
 
 			status = -1;
@@ -103,7 +97,6 @@ public class Mock_Server extends Thread{
 			break;
 		case 1:
 			//Create LAN
-			decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
 			if(decryptedID == 8080)
 			{
 				writeObjectToClient(this.encoder.CreateLAN((m.getManagerID()), "Password", 1));
@@ -115,7 +108,7 @@ public class Mock_Server extends Thread{
 			break;
 		case 2:
 			//End LAN
-			decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+			decryptedID = m.getManagerID();
 			if(decryptedID == 8080)
 			{
 				status = 1;
@@ -176,7 +169,7 @@ public class Mock_Server extends Thread{
 			break;
 		case 6:
 			//Requested Analytic Data Response
-			decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+			decryptedID = m.getManagerID();
 			if(decryptedID == 8080)
 			{
 				writeObjectToClient(this.encoder.RequestAnalyticData((m.getManagerID()),
@@ -195,7 +188,7 @@ public class Mock_Server extends Thread{
 			break;
 		case 8:
 			//muteComm Ack Received
-			decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+			decryptedID = m.getManagerID();
 			if(decryptedID == 8080)
 			{
 				//Send Ack back to NM
@@ -208,7 +201,7 @@ public class Mock_Server extends Thread{
 			break;
 		case 9:
 			//unMuteComm Ack Received
-			decryptedID = this.rsa.decryptToInt(this.privateKey, m.getManagerID());
+			decryptedID = m.getManagerID();
 			if(decryptedID == 8080)
 			{
 				writeObjectToClient(this.encoder.UnMuteComm((m.getManagerID()), 1));
@@ -227,31 +220,16 @@ public class Mock_Server extends Thread{
 			//Swap public Keys
 
 			//Save NM public Key
-			this.NM_publicKey = m.getPublicKey();
+			
 
 			//Send out public Key to NM
-			writeObjectToClient(this.encoder.SwapPublicKeys(this.publicKey, 1));
+			
 
 			break;
 		}
 	}
 
-	
-	private void generateRSAKeys()
-	{
-		try {
-			KeyPairGenerator keygen = KeyPairGenerator.getInstance("RSA");
-			keygen.initialize(2048);
-			KeyPair kp = keygen.genKeyPair();
-			this.publicKey = kp.getPublic();
-			this.privateKey = kp.getPrivate();
-
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void writeObjectToClient(Message output)
+	public void writeObjectToClient(String output)
 	{
 		try {
 			this.outToClient.writeObject(output);

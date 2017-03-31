@@ -32,12 +32,13 @@ public class Client_Conversation extends Conversation{
 	public Client_Conversation(Socket socket, ObjectInputStream inFromClient, ObjectOutputStream outToClient, Registrar reg, ResourceManager rm, Message first) {
 		super(socket, inFromClient, outToClient, reg, rm);
 		encoder = new Message_Encoder();
-		this.receiveQueue = new LinkedList<Message>();
 		
+		this.receiveQueue = new LinkedList<Message>();
 		this.receiver = new TCP_Receiver(inFromClient,receiveQueue);
 		this.receiver.start();
 		
 		LOG.info("->Client Conversation has been initialized!");
+		Messages_Received(first);
 	}
 
 	public void run()
@@ -112,7 +113,7 @@ public class Client_Conversation extends Conversation{
 				{
 					//Resend EndLAN
 					status =1;
-					writeObjectToClient(this.encoder.EndLAN(null, status));
+					writeObjectToClient(this.encoder.EndLAN(-99, status));
 				}
 				break;
 			case 3:
@@ -122,7 +123,7 @@ public class Client_Conversation extends Conversation{
 				 * add to registry and assign client an ID
 				 * else return error message
 				 */			
-				if(m.getClientID()<0)//doesn't already have an ID
+				if((m.getClientID()<0)&&(!this.getRegistrar().findByAnum(m.getaNum())))//doesn't already have an ID
 				{
 					if(m.getLANPass().equals(this.getResourceManager().getLAN_Password()))
 					{
@@ -136,7 +137,8 @@ public class Client_Conversation extends Conversation{
 					ID = this.ClientID;
 					status = 1;
 				}
-
+				
+				LOG.info("assigned client id of "+ID);
 				writeObjectToClient(this.encoder.AuthenticateClient(m.getFname(), m.getLname(), m.getaNum(),m.getLANPass(), ID, status));
 
 				break;
@@ -251,7 +253,7 @@ public class Client_Conversation extends Conversation{
 			//Send Client a message that LAN is shutting down
 			LOG.info("-> NM is asking us to kick clients off LAN");
 			this.endLAN_Ack = true;//Received message from NM
-			writeObjectToClient(this.encoder.EndLAN(null, -1));			
+			writeObjectToClient(this.encoder.EndLAN(-99, -1));			
 		}
 
 		if((this.getRegistrar().isShuttingdown())&&(this.shutdown_Ack==false))
@@ -259,7 +261,7 @@ public class Client_Conversation extends Conversation{
 			//Send Client a message that Server is shutting down
 			LOG.info("-> NM is asking us to kick clients off Server");
 			this.shutdown_Ack = true;//Received message from NM
-			writeObjectToClient(this.encoder.GracefulShutdown(null, -1));		
+			writeObjectToClient(this.encoder.GracefulShutdown(-99, -1));		
 		}
 		
 		if((this.getResourceManager().isNMHasToken())&&(this.getResourceManager().getPToken().getHolderID()==this.ClientID))

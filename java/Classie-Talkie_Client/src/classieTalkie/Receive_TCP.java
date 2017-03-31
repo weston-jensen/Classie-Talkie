@@ -24,12 +24,14 @@ public class Receive_TCP extends Thread{
 	private ObjectInputStream inFromServer;
 	private Message_Flag messageFlag;
 	private volatile boolean running = true;
+	private JSON_Decoder decode;
 	
 	public Receive_TCP(Socket socket, Queue<Message> rq, Message_Flag messageFlag) throws IOException
 	{
 		this.tcp_socket = socket;
 		this.receiveQueue = rq;
 		this.messageFlag = messageFlag;
+		this.decode = new JSON_Decoder();
 		this.inFromServer  = new ObjectInputStream(this.tcp_socket.getInputStream());
 	}
 	
@@ -42,19 +44,14 @@ public class Receive_TCP extends Thread{
 				if(!this.tcp_socket.isClosed())
 				{
 					Message m = null;
-					if(inFromServer!=null)
+					if(inFromServer !=null)
 					{
-						m = (Message)inFromServer.readObject();
-						if(m.mesgID >= 0)
-						{
-							if((this.messageFlag.getMesgID() == m.mesgID)&&(this.messageFlag.isFlagSet()==true))
-							{
-								this.messageFlag.setFlag(false);//received message pack
-								LOG.info("->Received Ack from Server");	
-							}
-							
-							this.receiveQueue.add(m);
-						}
+						
+						String mesg = (String)inFromServer.readObject();
+						System.out.println(mesg);
+						m = decode.decodeMessage(mesg);//translate JSON to Message
+						
+						this.receiveQueue.add(m);
 					}
 				
 				}

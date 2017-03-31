@@ -81,6 +81,27 @@ public class Registrar {
 		return result;
 	}
 	
+	public boolean findByAnum(String aNum)
+	{
+		boolean result = false;
+		LOG.info("Searching the Registry, size = "+Main.client_registry.size());
+		//Lock to ensure safety 
+		Lock lock = new ReentrantLock();
+		lock.lock();
+		for(int i=0;i<Main.client_registry.size();i++)
+		{
+			if(Main.client_registry.get(i).getAnum()==aNum)
+			{
+				LOG.info("!!!Match!!! Found ANumber is Registry: " +  Main.client_registry.get(i).getAnum());
+				result = true;
+				return result;
+			}
+		}
+		lock.unlock();
+		
+		return result;
+	}
+	
 	/**
 	 * Get size of the registry
 	 * @return int of size

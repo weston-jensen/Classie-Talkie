@@ -17,6 +17,8 @@ public class UDP_Receiver extends Thread {
 
 	AudioFormat format = getAudioFormat();
 	InputStream is;
+	
+	
 
 	public UDP_Receiver(UDP_Server server) {
 		this.UDPserver = server;
@@ -32,7 +34,7 @@ public class UDP_Receiver extends Thread {
 			
 			FileOutputStream fos = new FileOutputStream("Audio.txt");
 	
-			byte[] buffer = new byte[4410];
+			byte[] buffer = new byte[44100];
 			DatagramPacket dp;
 
 			while (running) {
@@ -62,13 +64,14 @@ public class UDP_Receiver extends Thread {
 							sourceDataLine.write(buffer, 0, cnt);
 							
 							//write audio to file for testing purposes
-							fos.write(buffer);
+							//fos.write(buffer);
 						}
 					}
 					// Block and wait for internal buffer of the data line to empty
 					sourceDataLine.drain();
 					sourceDataLine.close();
 					fos.close();
+					
 				} catch (Exception e) {
 				}
 				
@@ -83,7 +86,7 @@ public class UDP_Receiver extends Thread {
 	private AudioFormat getAudioFormat() {
 		float sampleRate = 44100.0F;
 		//8000,11025,16000,22050,44100
-		int sampleSizeBits = 8;
+		int sampleSizeBits = 16;
 		int channels = 1;
 		boolean signed = true;
 		boolean bigEndian = false;
