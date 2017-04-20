@@ -36,6 +36,12 @@ public class UDP_Receiver extends Thread {
 	
 			byte[] buffer = new byte[44100];
 			DatagramPacket dp;
+			
+			AudioFormat audioFormat = getAudioFormat();
+			DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
+			SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
+			sourceDataLine.open(audioFormat);
+			sourceDataLine.start();
 
 			while (running) {
 				
@@ -46,13 +52,16 @@ public class UDP_Receiver extends Thread {
 
 				// Get an input stream on the byte array containing the data
 				InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
-				AudioFormat audioFormat = getAudioFormat();
+				//AudioFormat audioFormat = getAudioFormat();
 				AudioInputStream audioInputStream = new AudioInputStream(byteArrayInputStream, audioFormat,
 						audioData.length / audioFormat.getFrameSize());
-				DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
-				SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-				sourceDataLine.open(audioFormat);
-				sourceDataLine.start();
+				//DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
+				//SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
+				//sourceDataLine.open(audioFormat);
+				//sourceDataLine.start();
+				
+				//System.out.println("audio length"+audioData.length);
+				
 
 				try {
 					int cnt;
@@ -61,18 +70,21 @@ public class UDP_Receiver extends Thread {
 						if (cnt > 0) {
 							// Write data to the internal buffer of the data
 							// line where it will be delivered to the speaker.
-							sourceDataLine.write(buffer, 0, cnt);
-							
+							//sourceDataLine.flush();//this might make things worse
+														
+							sourceDataLine.write(buffer, 0, cnt); 
+							//speaker.flush();
+														
 							//write audio to file for testing purposes
 							//fos.write(buffer);
 						}
 					}
+										
+				} catch (Exception e) {
 					// Block and wait for internal buffer of the data line to empty
 					sourceDataLine.drain();
 					sourceDataLine.close();
 					fos.close();
-					
-				} catch (Exception e) {
 				}
 				
 				Thread.sleep(1);

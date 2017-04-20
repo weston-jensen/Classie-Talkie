@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Queue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,6 +45,8 @@ public class NM_GUI {
         frame.setBounds(100, 100, 551, 347);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
        
         JPanel panel = new JPanel();
         panel.setBounds(130, 80, 400, 300);
@@ -96,6 +99,8 @@ public class NM_GUI {
 		frame.setBounds(100, 100, 551, 347);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
        
         JPanel panel = new JPanel();
         panel.setBounds(10, 11, 517, 293);
@@ -143,6 +148,8 @@ public class NM_GUI {
 		frame.setBounds(100, 100, 551, 347);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
        
         JPanel panel = new JPanel();
         panel.setBounds(10, 11, 554, 242);
@@ -236,6 +243,8 @@ public class NM_GUI {
         frame.setBounds(100, 100, 590, 303);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
        
         JPanel panel = new JPanel();
         panel.setBounds(10, 11, 554, 242);

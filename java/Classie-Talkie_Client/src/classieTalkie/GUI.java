@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -32,6 +33,8 @@ public class GUI {
         frame.setBounds(100, 100, 551, 347);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
        
         JPanel panel = new JPanel();
         panel.setBounds(10, 11, 515, 286);

@@ -1,6 +1,0 @@
-2017-03-04 18:51:02 INFO classieTalkie.ReliableSend_Tester test Mock Server is started
-2017-03-04 18:51:02 INFO classieTalkie.ReliableSend_Tester test Mock Client is started
-2017-03-04 18:51:05 INFO classieTalkie.ReliableSend_Tester respondOnFirst !!PASS -> Server Replied to first message, Messages Received by Server:1
-2017-03-04 18:51:10 INFO classieTalkie.ReliableSend_Tester respondOnSecond !!PASS -> Server Replied to second message, Messages Received by Server:2
-2017-03-04 18:51:16 INFO classieTalkie.ReliableSend_Tester respondOnThird !!PASS -> Server Replied to third message, Messages Received by Server:3
-2017-03-04 18:51:24 INFO classieTalkie.ReliableSend_Tester neverReply !!PASS -> Aborted reliable send as intended

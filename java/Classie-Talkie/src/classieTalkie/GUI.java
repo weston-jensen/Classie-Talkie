@@ -105,8 +105,8 @@ public class GUI implements Runnable  {
 		});
         panel.add(end);
         
-        ImageIcon img = new ImageIcon("Images/classieTalkieIcon.png");
-		frame.setIconImage(img.getImage());
+        //ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
         frame.setVisible(true);
         
 	}

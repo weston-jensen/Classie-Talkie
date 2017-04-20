@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Queue;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,6 +46,8 @@ public class Client_GUI {
 		this.frame = new JFrame();
 		// this.frame = Client_Info_GUI();
 		Connect_To_Server_GUI();
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
 		this.frame.setVisible(true);
 	}
 
@@ -53,6 +56,9 @@ public class Client_GUI {
 		frame.setBounds(100, 100, 551, 347);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
+        
 
 		JPanel panel = new JPanel();
 		panel.setBounds(130, 80, 400, 300);
@@ -73,7 +79,7 @@ public class Client_GUI {
 		serverIP_tf.setBounds(140, 10, 125, 25);
 		panel.add(serverIP_tf);
 		serverIP_tf.setColumns(10);
-		serverIP_tf.setText("127.0.0.1");
+		serverIP_tf.setText("192.168.0.33");
 
 		JLabel serverPort_label = new JLabel("Server Port");
 		serverPort_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -103,6 +109,8 @@ public class Client_GUI {
 		frame.setBounds(100, 100, 551, 429);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 11, 515, 345);
@@ -170,10 +178,10 @@ public class Client_GUI {
 		panel.add(connect_btn);
 
 		/* my info for testing */
-		fname_tf.setText("Weston");
-		lname_tf.setText("Jensen");
-		anum_tf.setText("A01211187");
-		netPass_tf.setText("Password");
+		fname_tf.setText("FirstName");
+		lname_tf.setText("LastName");
+		anum_tf.setText("A00000000");
+		netPass_tf.setText("password");
 
 		return frame;
 	}
@@ -204,6 +212,8 @@ public class Client_GUI {
 
 	public void changeFrameTo_UserInfo() {
 		Point p = this.frame.getLocation();
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//this.frame.setIconImage(img.getImage());
 		this.frame.dispose();
 		this.frame = Client_Info_GUI();
 		this.frame.setLocation(p);
@@ -212,6 +222,8 @@ public class Client_GUI {
 
 	public void changeFrameTo_PTT() {
 		Point p = this.frame.getLocation();
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//this.frame.setIconImage(img.getImage());
 		this.frame.dispose();
 		this.frame = PTT_GUI();
 		this.frame.setLocation(p);
@@ -222,6 +234,8 @@ public class Client_GUI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//ImageIcon img = new ImageIcon(Main.class.getResource("Images/classieTalkieIcon.png"));
+		//frame.setIconImage(img.getImage());
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();

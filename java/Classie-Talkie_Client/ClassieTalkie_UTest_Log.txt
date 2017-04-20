@@ -1,4 +1,0 @@
-2016-12-14 14:54:07 INFO classieTalkie.ClassieTalkie_Tester Client_Thread_test PASS!!! First Name was returned correctly
-2016-12-14 14:54:07 INFO classieTalkie.ClassieTalkie_Tester Client_Thread_test PASS!!! Last Name was returned correctly
-2016-12-14 14:54:07 INFO classieTalkie.ClassieTalkie_Tester Client_Thread_test PASS!!! A-Number was returned correctly
-2016-12-14 14:54:07 INFO classieTalkie.ClassieTalkie_Tester Client_Thread_test PASS!!! Password was returned correctly

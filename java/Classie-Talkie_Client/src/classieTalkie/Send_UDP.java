@@ -52,38 +52,20 @@ AudioFormat format = getAudioFormat();
             DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
             TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
             mic.open(format);
-            byte tmpBuff[] = new byte[44100];//new byte[mic.getBufferSize()/5];
+            byte tmpBuff[] = new byte[44100];
       
             mic.start();
             while(sendAudio)
             {
                 int count = mic.read(tmpBuff,0,tmpBuff.length);
-                System.out.println(count);
-                
-            /*    
-                Filter filter2 = new Filter(85,44100, Filter.PassType.Highpass,1);
-                for (int i = 0; i < tmpBuff.length; i++)
-                {
-                    filter2.Update(tmpBuff[i]);
-                    tmpBuff[i] = (byte) filter2.getValue();
-                }
-                
-                
-                Filter filter = new Filter(4500,44100, Filter.PassType.Lowpass,1);
-                for (int i = 0; i < tmpBuff.length; i++)
-                {
-                    filter.Update(tmpBuff[i]);
-                    tmpBuff[i] = (byte) filter.getValue();
-                }
-                /**/
-                
-                
-                
-                
+                //mic.flush();
+                                
                 if ((count > 0)&&(!this.socket.isClosed()))
                 {
                     DatagramPacket output = new DatagramPacket(tmpBuff,tmpBuff.length,this.addr,this.port);
+                    
 					this.socket.send(output);
+					//mic.flush();
                 }   
 
                 if(this.socket.isClosed())
