@@ -4,17 +4,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class GUI implements Runnable  {
 
 	private JFrame frame;
-	private String localHost;
+	private String localHost = "";
 	private volatile boolean running = true;
 	
 
@@ -78,21 +83,31 @@ public class GUI implements Runnable  {
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        
        
         JPanel panel = new JPanel();
         panel.setBounds(10, 11, 414, 239);
         frame.getContentPane().add(panel);
         panel.setLayout(null);
         
-        JLabel classie_label = new JLabel("Classie-Talkie ");
-        classie_label.setFont(new Font("SansSerif", Font.PLAIN, 24));
-        classie_label.setBounds(120, 11, 156, 27);
+        JLabel classie_label = new JLabel("Classie-Talkie Server");
+        classie_label.setFont(new Font("", Font.PLAIN, 24));
+        classie_label.setBounds(100, 11, 400, 27);
+        classie_label.setHorizontalTextPosition(SwingConstants.CENTER);
         panel.add(classie_label);
         
-        
+        String ip = "....";
+       
+        try {
+        	ip = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
+        frame.setTitle("Server IP Addr: "+ip);
+
         JLabel message = new JLabel(localHost);
         message.setBackground(Color.RED);
-        message.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        message.setFont(new Font("", Font.PLAIN, 18));
         message.setBounds(100, 150, 300, 25);
         panel.add(message);
         

@@ -19,7 +19,6 @@ public class TCP_Server extends Thread {
 		this.reg_instance = reg;
 		this.rm_instance = rm;
 		
-		//this.serverSocket = new ServerSocket(12001, 100, InetAddress.getByName("localhost"));
 		this.serverSocket = new ServerSocket(12001, 100, InetAddress.getLocalHost());
 		this.serverSocket.setSoTimeout(1000);
 		

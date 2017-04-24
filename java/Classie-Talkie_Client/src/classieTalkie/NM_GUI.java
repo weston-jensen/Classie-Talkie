@@ -54,12 +54,12 @@ public class NM_GUI {
         panel.setLayout(null);
         
         JLabel window_label = new JLabel("Connect To Server");
-		window_label.setFont(new Font("SansSerif", Font.PLAIN, 24));
+		window_label.setFont(new Font("", Font.PLAIN, 24));
 		window_label.setBounds(170, 10, 300, 25);
 		frame.add(window_label);
         
         JLabel serverIP_label = new JLabel("Server IP");
-        serverIP_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        serverIP_label.setFont(new Font("", Font.PLAIN, 14));
         serverIP_label.setBounds(10, 10, 125, 25);
         panel.add(serverIP_label);
        
@@ -67,10 +67,10 @@ public class NM_GUI {
         serverIP_tf.setBounds(140, 10, 125, 25);
         panel.add(serverIP_tf);
         serverIP_tf.setColumns(10);
-        serverIP_tf.setText("127.0.0.1");
+        serverIP_tf.setText("");
         
         JLabel serverPort_label = new JLabel("Server Port");
-        serverPort_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        serverPort_label.setFont(new Font("", Font.PLAIN, 14));
         serverPort_label.setBounds(10, 50, 125, 25);
         panel.add(serverPort_label);
        
@@ -81,7 +81,7 @@ public class NM_GUI {
         serverPort_tf.setText("12001");
         
         JButton connect_btn = new JButton("Connect");
-        connect_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        connect_btn.setFont(new Font("", Font.PLAIN, 14));
         connect_btn.setBounds(140, 100, 125, 25);
         connect_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -109,11 +109,11 @@ public class NM_GUI {
        
         JLabel lblNewLabel = new JLabel("Network Manager");
         lblNewLabel.setBounds(164, 5, 188, 32);
-        lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
+        lblNewLabel.setFont(new Font("", Font.PLAIN, 24));
         panel.add(lblNewLabel);
                 
         JLabel serverPass_label = new JLabel("Server Password:");
-        serverPass_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        serverPass_label.setFont(new Font("", Font.PLAIN, 14));
         serverPass_label.setBounds(74, 158, 117, 14);
         panel.add(serverPass_label);
        
@@ -121,15 +121,14 @@ public class NM_GUI {
         serverPass_tf.setBounds(201, 158, 151, 20);
         panel.add(serverPass_tf);
         serverPass_tf.setColumns(10);
-        //for testing
-        serverPass_tf.setText("CS-5200");
+       
         
         JLabel status_label = new JLabel(this.status);
         status_label.setBounds(74, 190, 350, 20);
         panel.add(status_label);
        
         JButton connect_btn = new JButton("Connect");
-        connect_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        connect_btn.setFont(new Font("", Font.PLAIN, 14));
         connect_btn.setBounds(377, 236, 89, 23);
         connect_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,11 +157,11 @@ public class NM_GUI {
        
         JLabel lblSetupLanPassword = new JLabel("Setup LAN Password");
         lblSetupLanPassword.setBounds(170, 5, 228, 32);
-        lblSetupLanPassword.setFont(new Font("SansSerif", Font.PLAIN, 24));
+        lblSetupLanPassword.setFont(new Font("", Font.PLAIN, 24));
         panel.add(lblSetupLanPassword);
        
         JLabel lblNewLabel = new JLabel("Network Password:");
-        lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblNewLabel.setFont(new Font("", Font.PLAIN, 14));
         lblNewLabel.setBounds(92, 117, 139, 19);
         panel.add(lblNewLabel);
        
@@ -178,7 +177,7 @@ public class NM_GUI {
         panel.add(status_label);
        
         JButton startLAN_btn = new JButton("Start LAN");
-        startLAN_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        startLAN_btn.setFont(new Font("", Font.PLAIN, 14));
         startLAN_btn.setBounds(362, 196, 117, 23);
         startLAN_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -253,11 +252,11 @@ public class NM_GUI {
        
         JLabel lblSetupLanPassword = new JLabel("LAN Network Active");
         lblSetupLanPassword.setBounds(170, 5, 228, 32);
-        lblSetupLanPassword.setFont(new Font("SansSerif", Font.PLAIN, 24));
+        lblSetupLanPassword.setFont(new Font("", Font.PLAIN, 24));
         panel.add(lblSetupLanPassword);
        
         JButton getData_btn = new JButton("Get Client Data");
-        getData_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        getData_btn.setFont(new Font("", Font.PLAIN, 14));
         getData_btn.setBounds(100, 100, 150, 45);
         getData_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -267,7 +266,7 @@ public class NM_GUI {
         panel.add(getData_btn);
         
         JButton mute_btn = new JButton(muteStatus);
-        mute_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        mute_btn.setFont(new Font("", Font.PLAIN, 14));
         mute_btn.setBounds(300, 100, 150, 45);
         mute_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -291,7 +290,7 @@ public class NM_GUI {
         panel.add(status_label);
         
         JButton end_btn = new JButton("End LAN");
-        end_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        end_btn.setFont(new Font("", Font.PLAIN, 14));
         end_btn.setBounds(200, 200, 150, 30);
         end_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -301,7 +300,7 @@ public class NM_GUI {
         panel.add(end_btn);
         
         JButton shutdown_btn = new JButton("Shutdown");
-        shutdown_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        shutdown_btn.setFont(new Font("", Font.PLAIN, 14));
         shutdown_btn.setBounds(400, 200, 150, 30);
         shutdown_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

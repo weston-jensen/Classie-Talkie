@@ -15,7 +15,7 @@ public class GUI {
 	private JFrame frame;
 	private boolean selectionMade;
 	private int selectionType;
-	static String[] userOptions = {"Network Manager", "Client"};
+	static String[] userOptions = {"Professor", "Student"};
 	
 	public GUI()
 	{

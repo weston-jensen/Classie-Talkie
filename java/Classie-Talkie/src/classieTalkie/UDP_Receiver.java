@@ -32,7 +32,7 @@ public class UDP_Receiver extends Thread {
 			speaker.open(format);
 			
 			
-			FileOutputStream fos = new FileOutputStream("Audio.txt");
+			//FileOutputStream fos = new FileOutputStream("Audio.txt");
 	
 			byte[] buffer = new byte[44100];
 			DatagramPacket dp;
@@ -52,29 +52,18 @@ public class UDP_Receiver extends Thread {
 
 				// Get an input stream on the byte array containing the data
 				InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
-				//AudioFormat audioFormat = getAudioFormat();
 				AudioInputStream audioInputStream = new AudioInputStream(byteArrayInputStream, audioFormat,
 						audioData.length / audioFormat.getFrameSize());
-				//DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
-				//SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-				//sourceDataLine.open(audioFormat);
-				//sourceDataLine.start();
 				
-				//System.out.println("audio length"+audioData.length);
-				
-
 				try {
 					int cnt;
 					// Keep looping until the input read method returns -1 for empty stream
 					while ((cnt = audioInputStream.read(buffer, 0, buffer.length)) != -1) {
 						if (cnt > 0) {
 							// Write data to the internal buffer of the data
-							// line where it will be delivered to the speaker.
-							//sourceDataLine.flush();//this might make things worse
-														
+							// line where it will be delivered to the speaker.												
 							sourceDataLine.write(buffer, 0, cnt); 
-							//speaker.flush();
-														
+							
 							//write audio to file for testing purposes
 							//fos.write(buffer);
 						}
@@ -84,7 +73,7 @@ public class UDP_Receiver extends Thread {
 					// Block and wait for internal buffer of the data line to empty
 					sourceDataLine.drain();
 					sourceDataLine.close();
-					fos.close();
+					//fos.close();
 				}
 				
 				Thread.sleep(1);

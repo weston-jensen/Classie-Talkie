@@ -66,12 +66,12 @@ public class Client_GUI {
 		panel.setLayout(null);
 		
 		JLabel window_label = new JLabel("Connect To Server");
-		window_label.setFont(new Font("SansSerif", Font.PLAIN, 24));
+		window_label.setFont(new Font("", Font.PLAIN, 24));
 		window_label.setBounds(170, 10, 300, 25);
 		frame.add(window_label);
 
 		JLabel serverIP_label = new JLabel("Server IP");
-		serverIP_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		serverIP_label.setFont(new Font("", Font.PLAIN, 14));
 		serverIP_label.setBounds(10, 10, 125, 25);
 		panel.add(serverIP_label);
 
@@ -79,10 +79,10 @@ public class Client_GUI {
 		serverIP_tf.setBounds(140, 10, 125, 25);
 		panel.add(serverIP_tf);
 		serverIP_tf.setColumns(10);
-		serverIP_tf.setText("192.168.0.33");
+		serverIP_tf.setText("");
 
 		JLabel serverPort_label = new JLabel("Server Port");
-		serverPort_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		serverPort_label.setFont(new Font("", Font.PLAIN, 14));
 		serverPort_label.setBounds(10, 50, 125, 25);
 		panel.add(serverPort_label);
 
@@ -93,7 +93,7 @@ public class Client_GUI {
 		serverPort_tf.setText("12001");
 
 		JButton connect_btn = new JButton("Connect");
-		connect_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		connect_btn.setFont(new Font("", Font.PLAIN, 14));
 		connect_btn.setBounds(140, 100, 125, 25);
 		connect_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,27 +118,27 @@ public class Client_GUI {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Client Info");
-		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
+		lblNewLabel.setFont(new Font("", Font.PLAIN, 24));
 		lblNewLabel.setBounds(186, 0, 161, 47);
 		panel.add(lblNewLabel);
 
 		JLabel fname_label = new JLabel("First Name:");
-		fname_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		fname_label.setFont(new Font("", Font.PLAIN, 14));
 		fname_label.setBounds(72, 73, 124, 25);
 		panel.add(fname_label);
 
 		JLabel lname_label = new JLabel("Last Name:");
-		lname_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lname_label.setFont(new Font("", Font.PLAIN, 14));
 		lname_label.setBounds(72, 110, 124, 25);
 		panel.add(lname_label);
 
 		JLabel anum_label = new JLabel("A-Number");
-		anum_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		anum_label.setFont(new Font("", Font.PLAIN, 14));
 		anum_label.setBounds(72, 145, 124, 25);
 		panel.add(anum_label);
 
 		JLabel netPass_label = new JLabel("Network Password:");
-		netPass_label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		netPass_label.setFont(new Font("", Font.PLAIN, 14));
 		netPass_label.setBounds(72, 184, 124, 25);
 		panel.add(netPass_label);
 
@@ -167,7 +167,7 @@ public class Client_GUI {
 		panel.add(status_label);
 
 		JButton connect_btn = new JButton("Connect");
-		connect_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		connect_btn.setFont(new Font("", Font.PLAIN, 14));
 		connect_btn.setBounds(379, 291, 89, 23);
 		connect_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -251,7 +251,7 @@ public class Client_GUI {
 
 		JButton ppt_btn = new JButton(pttState);
 		ppt_btn.setBackground(Color.BLUE);
-		ppt_btn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		ppt_btn.setFont(new Font("", Font.PLAIN, 14));
 		ppt_btn.setBounds(145, 85, 131, 27);
 		ppt_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -285,7 +285,7 @@ public class Client_GUI {
 		panel.add(endLAN_btn);
 
 		JLabel classie_label = new JLabel("Classie-Talkie ");
-		classie_label.setFont(new Font("SansSerif", Font.PLAIN, 24));
+		classie_label.setFont(new Font("", Font.PLAIN, 24));
 		classie_label.setBounds(120, 11, 156, 27);
 		panel.add(classie_label);
 

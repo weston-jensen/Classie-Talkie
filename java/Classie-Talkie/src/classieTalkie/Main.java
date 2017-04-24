@@ -30,10 +30,9 @@ public class Main implements Runnable {
 	Main() throws Exception
 	{
 		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s %2$s %5$s%6$s%n");
-		fh = new FileHandler("Server_Log.txt");
-	
-		fh.setFormatter(new SimpleFormatter()); 
-		LOG.addHandler(fh);
+		//fh = new FileHandler("Server_Log.txt");
+		//fh.setFormatter(new SimpleFormatter()); 
+		//LOG.addHandler(fh);
 		LOG.setLevel(Level.INFO);
 		
 		this.registrar = new Registrar();
