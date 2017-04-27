@@ -34,7 +34,7 @@ public class UDP_Receiver extends Thread {
 			
 			//FileOutputStream fos = new FileOutputStream("Audio.txt");
 	
-			byte[] buffer = new byte[44100];
+			byte[] buffer = new byte[4410];
 			DatagramPacket dp;
 			
 			AudioFormat audioFormat = getAudioFormat();
