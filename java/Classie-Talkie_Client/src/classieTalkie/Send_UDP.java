@@ -52,7 +52,7 @@ AudioFormat format = getAudioFormat();
             DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
             TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
             mic.open(format);
-            byte tmpBuff[] = new byte[2410];
+            byte tmpBuff[] = new byte[4410];
       
             mic.start();
             while(sendAudio)
